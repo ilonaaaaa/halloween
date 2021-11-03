@@ -9,7 +9,10 @@ class Tableau1 extends Phaser.Scene{
     preload(){
         //bg 2 (tout au fond et très flou)
         this.load.image('bg2-terrain-2', 'assets/level/background-2/bg2-terrain-2.png');
+        this.load.image('bg2-terrain-1', 'assets/level/background-2/bg2-terrain-1.png');
+        this.load.image('bg2-tree-1', 'assets/level/background-2/bg2-tree-1.png');
         this.load.image('bg2-tree-2', 'assets/level/background-2/bg2-tree-2.png');
+        this.load.image('bg2-tree-3', 'assets/level/background-2/bg2-tree-3.png');
 
         //bg 1 (gris légèrement flou)
         this.load.image('bg1-terrain-3', 'assets/level/background-1/bg-terrain-3.png');
@@ -20,6 +23,7 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('gRight', 'assets/level/ground/g-right.png');
         this.load.image('gLeft', 'assets/level/ground/g-left.png');
         this.load.image('gTree1', 'assets/level/ground/g-tree-1.png');
+        this.load.image('gWater', 'assets/level/ground/g-water.png');
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
         // ALGO : ceci est une boucle
@@ -63,15 +67,20 @@ class Tableau1 extends Phaser.Scene{
          * Terrain dans bg2
          * @type {Phaser.GameObjects.Image}
          */
-        let bg2Terrain2=this.add.image(-100,100, 'bg2-terrain-2').setOrigin(0,0);
+        let bg2Terrain2=this.add.image(10,100, 'bg2-terrain-2').setOrigin(0,0);
         this.bg2Container.add(bg2Terrain2);
+        let bg2Terrain1=this.add.image(800,100, 'bg2-terrain-1').setOrigin(0,0);
+        this.bg2Container.add(bg2Terrain1);
         /**
          * Arbre dans bg2
          * @type {Phaser.GameObjects.Image}
          */
-        let bg2Tree2=this.add.image(400,-50, 'bg2-tree-2').setOrigin(0,0);
-        this.bg2Container.add(bg2Tree2);
-        bg2Tree2.angle=0; //pencher l'arbre de -5 degrès
+        let bg2Tree1=this.add.image(400,-50, 'bg2-tree-1').setOrigin(0,0);
+        this.bg2Container.add(bg2Tree1);
+        bg2Tree1.angle=0; //pencher l'arbre de -5 degrès
+        let bg2Tree3=this.add.image(850,-50, 'bg2-tree-3').setOrigin(0,0);
+        this.bg2Container.add(bg2Tree3);
+        bg2Tree3.angle=-10;
 
         //--------------background 1 (gris) --------------------
 
@@ -84,8 +93,10 @@ class Tableau1 extends Phaser.Scene{
          * Terrain
          * @type {Phaser.GameObjects.Image}
          */
-        let bg1Terrain3=this.add.image(-300,200, 'bg1-terrain-3').setOrigin(0,0);
+        let bg1Terrain3=this.add.image(-315,200, 'bg1-terrain-3').setOrigin(0,0);
         this.bg1Container.add(bg1Terrain3);
+        let bg1Terrain1=this.add.image(800,250, 'bg1-terrain-1').setOrigin(0,0);
+        this.bg1Container.add(bg1Terrain1);
 
         //-------------ground (premier plan noir)---------------------------
 
@@ -112,7 +123,7 @@ class Tableau1 extends Phaser.Scene{
          * Terrain 2
          * @type {Phaser.GameObjects.Image}
          */
-        let gMid2=this.add.image(gMid1.x+gMid1.width+1,350, 'gMid').setOrigin(0,0); //on rajoute 1 px pour l'exemple
+        let gMid2=this.add.image(gMid1.x+gMid1.width,350, 'gMid').setOrigin(0,0); //on rajoute 1 px pour l'exemple
         this.groundContainer.add(gMid2);
         /**
          * Terrain 3
@@ -163,11 +174,14 @@ class Tableau1 extends Phaser.Scene{
         // Définit l'espace de déplacement de la caméra
         this.cameras.main.setBounds(0, 0, 2000, 540);
         //définit à quelles vitesse se déplacent nos différents plans
-        bgAnimationA.scrollFactorX=0;
+        bgAnimation1.scrollFactorX=0;
         this.filterFilm.scrollFactorX=0;
-        this.bg2Container.scrollFactorX=0.2;
-        this.bg1Container.scrollFactorX=0.4;
-        this.groundContainer.scrollFactorX=1;
+        //this.bg2Container.scrollFactorX=0.2;
+        //this.bg1Container.scrollFactorX=0.4;
+        //this.groundContainer.scrollFactorX=1;
+        this.bg2Container.scrollFactorX=2;
+        this.bg1Container.scrollFactorX=4;
+        this.groundContainer.scrollFactorX=10;
     }
     /**
      * Définit ce qui se passe quand on appuie ou relache une touche du clavier
