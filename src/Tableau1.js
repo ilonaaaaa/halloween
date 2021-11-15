@@ -43,6 +43,9 @@ class Tableau1 extends Phaser.Scene{
         this.load.image('gMid5', 'assets/level/ground/g-mid.png');
         this.load.image('gWater', 'assets/level/ground/g-water.png');
         this.load.image('gSpike', 'assets/level/ground/g-spike-2.png');
+        this.load.image('z4', 'assets/level/ground/z4.png');
+        this.load.image('z8', 'assets/level/ground/z8.png');
+        this.load.image('z14', 'assets/level/ground/z14.png');
 
 
         //au lieu d'écrire 5 lignes quasi identiques, on charge l'herbe avec une boucle
@@ -73,7 +76,19 @@ class Tableau1 extends Phaser.Scene{
          * Fond très clair avec une trame
          * @type {Phaser.GameObjects.Sprite}
          */
-        let bgAnimation1=this.add.sprite(0,0, 'bg-animation-1').setOrigin(0,0);
+        this.bgAnimation = this.add.sprite(0, 0, 'bgAnimation1').setOrigin(0,0);
+        //animation de 3 images
+        this.anims.create({
+            key: 'animation',
+            frames: [
+                {key:'bg-animation-1'},
+                {key:'bg-animation-2'},
+                {key:'bg-animation-3'},
+            ],
+            frameRate: 16,
+            repeat: -1
+        });
+        this.bgAnimation.play('animation');
 
         //--------------background 2 (tout au fond et flou)--------------------
 
@@ -131,6 +146,22 @@ class Tableau1 extends Phaser.Scene{
          * @type {Phaser.GameObjects.Container}
          */
         this.groundContainer=this.add.container(0,0);
+        /**
+         *
+         * Zombi
+         * @type {Phaser.GameObjects.TileSprite}
+         */
+        let z4=this.add.image(475,178, 'z4').setOrigin(0,0);
+        z4.angle=12;
+        this.groundContainer.add(z4);
+
+        let z8=this.add.image(970,200, 'z8').setOrigin(0,0);
+        z8.angle=10;
+        this.groundContainer.add(z8);
+
+        let z14=this.add.image(100,200, 'z14').setOrigin(0,0);
+        z14.angle=10;
+        this.groundContainer.add(z14);
         /**
          * Arbre
          * @type {Phaser.GameObjects.Image}
